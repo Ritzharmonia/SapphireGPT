@@ -45,7 +45,7 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isLoreModalOpen, setIsLoreModalOpen] = useState(false);
-  const [selectedModel, setSelectedModel] = useState('gemini-3.8-flash');
+  const [selectedModel, setSelectedModel] = useState('gemini-flash-latest');
   const [activePersonaId, setActivePersonaId] = useState('general');
   const [webSearchEnabled, setWebSearchEnabled] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);

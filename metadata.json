@@ -1,0 +1,6 @@
+{
+  "name": "SapphireGPT",
+  "description": "Саффир улсын албан ёсны мэдээллийн хиймэл оюун ухаан, төрийн мэдлэгийн сан (ZGRP).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

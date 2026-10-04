@@ -298,20 +298,123 @@ app.post('/api/chat/stream', async (req, res) => {
     });
   }
 
-  // SSE headers
-  res.setHeader(
-    'Content-Type',
-    'text/event-stream; charset=utf-8'
-  );
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, no-transform'
-  );
-  res.setHeader(
-    'Connection',
-    'keep-alive'
-  );
-  res.setHeader(
-    'X-Accel-Buffering',
-    'no'
- 
+  // SSE headers with disabled buffering for ultra-fast TTFT
+  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no');
+  res.flushHeaders?.();
+
+  const formattedContents = formatMessages(messages);
+
+  const config: any = {
+    systemInstruction: systemInstruction
+      ? `${defaultSystem}\n\nНэмэлт хэрэглэгчийн хүсэлт: ${systemInstruction}`
+      : defaultSystem,
+    temperature: 0.3,
+  };
+
+  if (webSearch) {
+    config.tools = [{ googleSearch: {} }];
+  }
+
+  try {
+    const stream = await getStreamWithFallback(
+      model || 'gemini-flash-latest',
+      formattedContents,
+      config
+    );
+
+    for await (const chunk of stream) {
+      if (chunk.text) {
+        res.write(`data: ${JSON.stringify({ text: chunk.text })}\n\n`);
+        if (typeof (res as any).flush === 'function') {
+          (res as any).flush();
+        }
+      }
+    }
+
+    res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
+    res.end();
+  } catch (error: any) {
+    console.error('Streaming error in /api/chat/stream:', error);
+    res.write(
+      `data: ${JSON.stringify({
+        error: error.message || 'Алдаа гарлаа. Дахин оролдоно уу.',
+        done: true,
+      })}\n\n`
+    );
+    res.end();
+  }
+});
+
+// ============================================================
+// STANDARD CHAT (NON-STREAMING)
+// ============================================================
+
+app.post('/api/chat', async (req, res) => {
+  try {
+    const {
+      messages,
+      systemInstruction,
+      model = 'gemini-flash-latest',
+      webSearch = false,
+    } = req.body;
+
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({ error: 'Messages array is required' });
+    }
+
+    const formattedContents = formatMessages(messages);
+
+    const config: any = {
+      systemInstruction: systemInstruction
+        ? `${defaultSystem}\n\nНэмэлт хэрэглэгчийн хүсэлт: ${systemInstruction}`
+        : defaultSystem,
+      temperature: 0.3,
+    };
+
+    if (webSearch) {
+      config.tools = [{ googleSearch: {} }];
+    }
+
+    const response = await getContentWithFallback(
+      model || 'gemini-flash-latest',
+      formattedContents,
+      config
+    );
+
+    res.json({ text: response.text });
+  } catch (err: any) {
+    console.error('Error in /api/chat:', err);
+    res.status(500).json({ error: err.message || 'Алдаа гарлаа' });
+  }
+});
+
+// ============================================================
+// VITE MIDDLEWARE & SERVER START
+// ============================================================
+
+const isProd = process.env.NODE_ENV === 'production';
+
+async function startServer() {
+  if (!isProd) {
+    const { createServer } = await import('vite');
+    const vite = await createServer({
+      server: { middlewareMode: true },
+      appType: 'spa',
+    });
+    app.use(vite.middlewares);
+  } else {
+    app.use(express.static(path.resolve(__dirname, 'dist')));
+    app.get('*', (_req, res) => {
+      res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+    });
+  }
+
+  app.listen(PORT, () => {
+    console.log(`SapphireGPT server running on http://localhost:${PORT}`);
+  });
+}
+
+startServer();

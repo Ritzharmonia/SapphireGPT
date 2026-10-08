@@ -45,7 +45,7 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isLoreModalOpen, setIsLoreModalOpen] = useState(false);
-  const [selectedModel, setSelectedModel] = useState('gemini-flash-latest');
+  const [selectedModel, setSelectedModel] = useState('gemini-3.1-flash-lite');
   const [activePersonaId, setActivePersonaId] = useState('general');
   const [webSearchEnabled, setWebSearchEnabled] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
@@ -287,7 +287,21 @@ export default function App() {
       });
 
       if (!response.ok) {
-        throw new Error(`Серверийн хариу: ${response.status} ${response.statusText}`);
+        let serverErrorMsg = '';
+        try {
+          const errorData = await response.json();
+          serverErrorMsg = errorData.error || '';
+        } catch {
+          // not json
+        }
+        if (response.status === 404) {
+          throw new Error(
+            'API зам олдсонгүй (404). Хэрэв Vercel / Netlify дээр байршуулж байгаа бол Settings > Environment Variables хэсэгт GEMINI_API_KEY-ээ оруулж redeploy хийнэ үү.'
+          );
+        }
+        throw new Error(
+          serverErrorMsg || `Серверийн хариу: ${response.status} ${response.statusText}`
+        );
       }
 
       const reader = response.body?.getReader();

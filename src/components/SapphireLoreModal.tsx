@@ -277,7 +277,7 @@ export const SapphireLoreModal: React.FC<SapphireLoreModalProps> = ({
                   </div>
                   <ul className="space-y-1 text-slate-300">
                     <li>• <b className="text-white">Grand Chancellor Caesar Charmiell</b> (Их Канцлер)</li>
-                    <li>• <b className="text-white">Countess Lydia Charmiell</b> (Гүнгийн хатан — Гадаад яам, Боомт)</li>
+                    <li>• <b className="text-white">Countess Lydia Charmiell</b> (Эрхэм гүнгийн ахайтан — Гадаад яам, Боомт. Улсынхан түүнийг "Шулам" гэлцдэг)</li>
                     <li>• <b className="text-white">Marchioness Serena Charmiell</b> (Маркиза — Эрүүл мэндийн яам)</li>
                     <li>• Baron Ron Charmiell (Архины дэлгүүр)</li>
                     <li>• Baroness Ravenna Charmiell</li>
@@ -470,40 +470,40 @@ export const SapphireLoreModal: React.FC<SapphireLoreModalProps> = ({
                 <div className="p-3.5 rounded-xl bg-[#091130] border border-[#19275f]">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-sky-300">1. ROXANA VANCHELLSING</span>
-                    <span className="text-[10px] text-slate-400 bg-[#050818] px-2 py-0.5 rounded">Анхны хатан</span>
+                    <span className="text-[10px] text-slate-400 bg-[#050818] px-2 py-0.5 rounded">Анхны хатан (30 орчим настай)</span>
                   </div>
                   <p className="mt-1 text-slate-300 text-xs leading-relaxed">
-                    Анхны вант улс Зжрп-ийг үүсгэн байгуулагч. Хаан Claude Vanchellsing-ийн хамт улсын гол багана болсон. 5 үр: Carmen, Athanasia, Francisco, Ariadne, Emeliet.
+                    Анхны вант улс Зжрп-ийг үүсгэн байгуулагч. 30 хавьцаа настай байсан. Хаан Claude Vanchellsing-ийн хамт улсын гол багана болсон. 5 үр: Carmen, Athanasia, Francisco, Ariadne, Emeliet.
                   </p>
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-[#091130] border border-[#19275f]">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-sky-300">2. CARMEN VANCHELLSING</span>
-                    <span className="text-[10px] text-slate-400 bg-[#050818] px-2 py-0.5 rounded">2-р хатан</span>
+                    <span className="text-[10px] text-slate-400 bg-[#050818] px-2 py-0.5 rounded">18 насандаа хатан болсон</span>
                   </div>
                   <p className="mt-1 text-slate-300 text-xs leading-relaxed">
-                    Roxana хатны ууган охин. 18-тайдаа хатан болсон. Түүхэнд 2 нөхөртэй байсан цорын ганц хатан. Ихэр гүнж: Этан ба Росалиа. 23-тайдаа таалал төгссөн.
+                    Roxana хатны ууган охин. 18 насандаа хаан ширээнд суусан. Түүхэнд 2 нөхөртэй байсан цорын ганц хатан. Ихэр гүнж: Этан ба Росалиа. 23 насандаа таалал төгссөн.
                   </p>
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-[#091130] border border-[#19275f]">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-sky-300">3. RAPHAEL MIZELIAN</span>
-                    <span className="text-[10px] text-slate-400 bg-[#050818] px-2 py-0.5 rounded">Анхны хаан</span>
+                    <span className="text-[10px] text-slate-400 bg-[#050818] px-2 py-0.5 rounded">Анхны хаан (Нас тогтсон)</span>
                   </div>
                   <p className="mt-1 text-slate-300 text-xs leading-relaxed">
-                    Ванхэллисэнг бослогын үед Керис (Саффир)-ийн үндсийг тавьсан. Алдарт үг: <i>"Харилцаанаас харьцлаа, хүндлэлээс хүндлэл."</i> Хатан Serena, охин Haesa.
+                    Нас нь тодорхой бус боловч нас тогтсон хүн байсан. Ванхэллисэнг бослогын үед Саффирын суурийг тавьсан. Алдарт үг: <i>"Харилцаанаас харьцлаа, хүндлэлээс хүндлэл."</i>
                   </p>
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-[#091130] border border-[#19275f]">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-sky-300">4. SERENA SERENITY</span>
-                    <span className="text-[10px] text-slate-400 bg-[#050818] px-2 py-0.5 rounded">Шинэчлэгч хатан</span>
+                    <span className="text-[10px] text-slate-400 bg-[#050818] px-2 py-0.5 rounded">Шинэчлэгч хатан (Нас тогтсон)</span>
                   </div>
                   <p className="mt-1 text-slate-300 text-xs leading-relaxed">
-                    Raphael хааныг нас барсны дараа хатан болсон. Зжрп-ийн хуучинсаг ёс жаягийг халж, улс үндэстэнд шинэ эрин авчирсан зоримог удирдагч.
+                    Raphael хааны хань, нас тогтсон хатан байсан. Raphael хааныг нас барсны дараа хатан болж хуучинсаг ёс жаягийг халж, шинэ эрин авчирсан зоримог удирдагч.
                   </p>
                 </div>
 
@@ -550,10 +550,10 @@ export const SapphireLoreModal: React.FC<SapphireLoreModalProps> = ({
                 <div className="p-3.5 rounded-xl bg-[#091130] border border-[#19275f]">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-sky-300">9. DION AGRICHE & CHARTERIS</span>
-                    <span className="text-[10px] text-slate-400 bg-[#050818] px-2 py-0.5 rounded">28-р он (9 он засагласан)</span>
+                    <span className="text-[10px] text-slate-400 bg-[#050818] px-2 py-0.5 rounded">41-45 насандаа засагласан</span>
                   </div>
                   <p className="mt-1 text-slate-300 text-xs leading-relaxed">
-                    Dion: Керисийг Зжрп-д албан ёсоор оруулж хуулийн үндсийг тавьсан. Charteris хаан Ариа Агриче хатны хамт 9 он төр барьж, цол хэргэм, урлагийн яамыг шинэчилсэн.
+                    Dion: Керисийг Зжрп-д оруулж хуулийн үндсийг тавьсан. Charteris хаан 41 насандаа сууж 45 насандаа зодог тайлсан. Ариа Агриче хатны хамт төр барьж, цол хэргэм, урлагийн яамыг шинэчилсэн.
                   </p>
                 </div>
 
@@ -564,11 +564,11 @@ export const SapphireLoreModal: React.FC<SapphireLoreModalProps> = ({
                       10. LIBERTIA VON MONTAQUE
                     </span>
                     <span className="text-[10px] font-bold text-white bg-white/10 px-2 py-0.5 rounded border border-white/20">
-                      Одоогийн Хатан Хаан
+                      26 настай (Нөхөр, хүүхэдгүй)
                     </span>
                   </div>
                   <p className="mt-1 text-slate-200 text-xs leading-relaxed">
-                    10-р төрийн тэргүүн, 6 дахь хатан хаан. 2026.08.06-нд сэнтийд залрав. 40-р онд Сэргэн мандалтын эрин үеийг зарлаж, 4 Их хөлөг онгоц, шинэ ордон, Хүндэт титмийг тунхаглав.
+                    2024.12.15-нд 18 насандаа Саффирт ирж, 25 насандаа хаан ширээнд суусан. Өдгөө 26 настай. Нөхөр, хүүхэдгүй бөгөөд сэнтийнээс бууж дараагийн тэргүүн залрах хүртэл нөхөр, хүүхэдтэй болохгүй гэж албан мэдэгдэл хийсэн.
                   </p>
                 </div>
               </div>
@@ -604,34 +604,41 @@ export const SapphireLoreModal: React.FC<SapphireLoreModalProps> = ({
                   <div className="p-2.5 rounded-xl bg-[#091130] border border-[#162558]">
                     <b className="text-sky-300">♯1 ⋮ Эдийн Засгийн Яам</b>
                     <div className="text-slate-300 text-[11.5px] mt-0.5">Яамны тэргүүн: Либертиа Вон Монтакью</div>
+                    <div className="text-slate-400 text-[11px]">Ажилтан: Цезарь Чармиелл (Банкны гүйлгээний мэргэжилтэн)</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#091130] border border-[#162558]">
-                    <b className="text-sky-300">♯2 ⋮ Хөдөлмөр Зохицуулалтын Яам</b>
+                    <b className="text-sky-300">♯2 ⋮ Хөдөлмөр Зуучлалын Яам (ХЗЯ)</b>
                     <div className="text-slate-300 text-[11.5px] mt-0.5">Яамны тэргүүн: Либертиа Вон Монтакью</div>
+                    <div className="text-slate-400 text-[11px]">Менежер: Каервин Вон Монтакью</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#091130] border border-[#162558]">
-                    <b className="text-sky-300">♯3 ⋮ Шорон Шүүх Яам</b>
+                    <b className="text-sky-300">♯3 ⋮ Шорон Шүүх Яам (ШШЯ)</b>
                     <div className="text-slate-300 text-[11.5px] mt-0.5">Яамны тэргүүн: Карлисле Агриче</div>
+                    <div className="text-slate-400 text-[11px]">Төрд захирагдахгүй бие даасан шүүх эрх мэдэл</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#091130] border border-[#162558]">
                     <b className="text-sky-300">♯4 ⋮ Эрүүл Мэндийн Яам</b>
-                    <div className="text-slate-300 text-[11.5px] mt-0.5">Яамны тэргүүн: Серена Чармиелл</div>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Яамны тэргүүн: Serena Charming Charmiell</div>
+                    <div className="text-slate-400 text-[11px]">Ажилчид: Andras (сувилагч), Thalia (сувилагч), Vlad (эх эмч)</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#091130] border border-[#162558]">
                     <b className="text-sky-300">♯5 ⋮ Цаг Уур Мэдээний Яам</b>
                     <div className="text-slate-300 text-[11.5px] mt-0.5">Яамны тэргүүн: Хэй'Ейн Авревиелл</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#091130] border border-[#162558]">
-                    <b className="text-sky-300">♯6 ⋮ Гадаад Яам</b>
-                    <div className="text-slate-300 text-[11.5px] mt-0.5">Яамны тэргүүн: Лидиа Чармиелл</div>
+                    <b className="text-sky-300">♯6 ⋮ Гадаад Яам & Газрын Яам</b>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Тэргүүн: Лидиа Чармиелл (Шулам гэлцдэг)</div>
+                    <div className="text-slate-400 text-[11px]">Газрын яаманд ганцаараа ажилладаг</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#091130] border border-[#162558]">
-                    <b className="text-sky-300">♯7 ⋮ Соёл Урлагийн Яам</b>
-                    <div className="text-slate-300 text-[11.5px] mt-0.5">Яамны тэргүүн: Андрес Агриче</div>
+                    <b className="text-sky-300">♯7 ⋮ Соёл Урлагийн Яам (11 ажилтан)</b>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Яамны тэргүүн: Andras Agriche</div>
+                    <div className="text-slate-400 text-[11px]">Andrew, Ren, Tiara, Hei'Ying, Mina, Carlisle, Viola, Valentina, Ludovica, Zirui, Killian</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#091130] border border-[#162558]">
-                    <b className="text-sky-300">♯8 ⋮ Боомт</b>
-                    <div className="text-slate-300 text-[11.5px] mt-0.5">Яамны тэргүүн: Лидиа Чармиелл</div>
+                    <b className="text-sky-300">♯8 ⋮ Боомт (Water Port)</b>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Тэргүүн: Лидиа Чармиелл</div>
+                    <div className="text-slate-400 text-[11px]">Менежер: Винтэр Дэ Алгер Обелиа</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#091130] border border-[#162558]">
                     <b className="text-sky-300">♯9 ⋮ Хяналтын Алба</b>
@@ -656,48 +663,53 @@ export const SapphireLoreModal: React.FC<SapphireLoreModalProps> = ({
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                   <div className="p-2.5 rounded-xl bg-[#060a1c] border border-[#131e47]">
-                    <b className="text-indigo-300">♯1 ⋮ Цэцгийн дэлгүүр</b>
-                    <div className="text-slate-400 text-[11.5px] mt-0.5">Тэргүүн: Колумбина Вон Монтакью</div>
+                    <b className="text-indigo-300">♯1 ⋮ Eden Atelier (Модон урлал)</b>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Тэргүүн: Caerwyn Von Montaque</div>
+                    <div className="text-slate-400 text-[11px]">Орлох тэргүүн: Tiara | Ажилтан: Myuzi</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#060a1c] border border-[#131e47]">
-                    <b className="text-indigo-300">♯2 ⋮ Архины дэлгүүр</b>
-                    <div className="text-slate-400 text-[11.5px] mt-0.5">Тэргүүн: Рон Чармиелл</div>
+                    <b className="text-indigo-300">♯2 ⋮ Charming Liquor (Архины дэлгүүр)</b>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Тэргүүн: Ron Charming Charmiell (5 эхнэртэй байсан)</div>
+                    <div className="text-slate-400 text-[11px]">Менежер: Serena | Худалдагч: Mydeimos</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#060a1c] border border-[#131e47]">
-                    <b className="text-indigo-300">♯3 ⋮ Гоо сайхны дэлгүүр</b>
-                    <div className="text-slate-400 text-[11.5px] mt-0.5">Тэргүүн: Хэй'Ейн Авревиелл</div>
+                    <b className="text-indigo-300">♯3 ⋮ Euripides Academy (Еврипидийн Академи)</b>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Тэргүүн: Либертиа Хатан хаан | Эрхлэгч: Caerwyn</div>
+                    <div className="text-slate-400 text-[11px]">Багш нар: Ren, Siegren, Alena, Elise, Viola, Lydia, Serena, Ayna, Ivan, Mydeimos (тогооч)</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#060a1c] border border-[#131e47]">
-                    <b className="text-indigo-300">♯4 ⋮ Одон орон судлалын төв</b>
-                    <div className="text-slate-400 text-[11.5px] mt-0.5">Тэргүүн: Элис Кастильоне</div>
+                    <b className="text-indigo-300">♯4 ⋮ Княжеская Охота (Ан агнуур)</b>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Тэргүүн: Alexander D'Sergeyev</div>
+                    <div className="text-slate-400 text-[11px]">Хүргэлтийн ажилтан: Ijekiel De Alger Obelia</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#060a1c] border border-[#131e47]">
-                    <b className="text-indigo-300">♯5 ⋮ Номын сан</b>
-                    <div className="text-slate-400 text-[11.5px] mt-0.5">Тэргүүн: Элис Кастильоне</div>
+                    <b className="text-indigo-300">♯5 ⋮ Обсидиан Уран Зургийн Галерей</b>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Тэргүүн: Винтер Де Алгер Обелиа</div>
+                    <div className="text-slate-400 text-[11px]">Хүргэлт Aze, Менежер Mina, Бичээч Athanasia, Зураач Astorias, 5 археологич</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#060a1c] border border-[#131e47]">
-                    <b className="text-indigo-300">♯6 ⋮ Модон урлалын дэлгүүр</b>
-                    <div className="text-slate-400 text-[11.5px] mt-0.5">Тэргүүн: Каервин Вон Монтакью</div>
+                    <b className="text-indigo-300">♯6 ⋮ Цэцгийн дэлгүүр</b>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Тэргүүн: Колумбина Вон Монтакью</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#060a1c] border border-[#131e47]">
-                    <b className="text-indigo-300">♯7 ⋮ Ан агнуурын дэлгүүр</b>
-                    <div className="text-slate-400 text-[11.5px] mt-0.5">Тэргүүн: Влад Дмитрий Сергьев</div>
+                    <b className="text-indigo-300">♯7 ⋮ Гоо сайхны дэлгүүр</b>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Тэргүүн: Хэй'Ейн Авревиелл</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#060a1c] border border-[#131e47]">
-                    <b className="text-indigo-300">♯8 ⋮ Уран зураг / Галерей</b>
-                    <div className="text-slate-400 text-[11.5px] mt-0.5">Тэргүүн: Винтер Де Алгер Обелиа</div>
+                    <b className="text-indigo-300">♯8 ⋮ Одон орон судлал & Номын сан</b>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Тэргүүн: Элис Кастильоне</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#060a1c] border border-[#131e47]">
                     <b className="text-indigo-300">♯9 ⋮ Амттаны дэлгүүр</b>
-                    <div className="text-slate-400 text-[11.5px] mt-0.5">Тэргүүн: Элиас Чармиелл</div>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Тэргүүн: Элиас Чармиелл</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#060a1c] border border-[#131e47]">
                     <b className="text-indigo-300">♯10 ⋮ Казино</b>
-                    <div className="text-slate-400 text-[11.5px] mt-0.5">Тэргүүн: Влад Дмитрий Серсъев</div>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Тэргүүн: Влад Дмитрий Сергьев</div>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[#060a1c] border border-[#131e47] sm:col-span-2">
-                    <b className="text-indigo-300">♯11 ⋮ Ресторан</b>
-                    <div className="text-slate-400 text-[11.5px] mt-0.5">Тэргүүн: Зайфер Де Алгер Обелиа</div>
+                    <b className="text-indigo-300">♯11 ⋮ Католик Сүм & Ресторан</b>
+                    <div className="text-slate-300 text-[11.5px] mt-0.5">Тэргүүн: Зайфер Де Алгер Обелиа</div>
                   </div>
                 </div>
               </div>
@@ -782,10 +794,15 @@ export const SapphireLoreModal: React.FC<SapphireLoreModalProps> = ({
                 </button>
               </div>
 
-              {/* Time rule */}
-              <div className="p-3.5 rounded-xl bg-blue-950/40 border border-blue-500/40 text-xs text-slate-200">
-                <span className="font-bold text-sky-300">ЦАГ ХУГАЦААНЫ ХАРЬЦАА:</span> "Саффир улсад 1 жил нь бодит амьдрал дээр 1 сар байна."
-                <div className="text-[11px] text-slate-400 mt-1">
+              {/* Time & Ageing rule */}
+              <div className="p-3.5 rounded-xl bg-blue-950/40 border border-blue-500/40 text-xs text-slate-200 space-y-1.5">
+                <div>
+                  <span className="font-bold text-sky-300">ЦАГ ХУГАЦААНЫ ХАРЬЦАА:</span> "Саффир улсад 1 жил нь бодит амьдрал дээр 1 сар байна."
+                </div>
+                <div className="pt-1 border-t border-blue-500/20 text-sky-200">
+                  <span className="font-bold text-amber-300">🎂 НАС НЭМЭХ ӨДРҮҮД:</span> Жил бүрийн <b>3.22, 6.22, 9.22, 12.22</b> өдрүүдэд Саффир улсын бүх иргэд 1-ээр нас нэмдэг (улирал бүрийн 22-ны өдөр нас нэмнэ).
+                </div>
+                <div className="text-[11px] text-slate-400">
                   Улсад таарч дүрд орох гэж буй иргэд никээ сайтар анзаарч, хамтрагчтайгаа цаг үеэ баримталж дүрд орно. Өөрөөсөө дээд албан тушаалтанд ёслохоо мартуузай.
                 </div>
               </div>

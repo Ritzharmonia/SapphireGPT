@@ -4,23 +4,23 @@ export const PERSONAS: Persona[] = [
   {
     id: 'general',
     name: 'Саффирын Төрийн Лавлах',
-    description: 'Саффир улсын албан ёсны мэдлэгийн сан, төрийн туслах',
+    description: 'Саффир улсын албан ёсны мэдлэгийн сан, ChatGPT шиг бүхнийг чадагч туслах',
     iconName: 'Crown',
-    systemPrompt: 'Та бол Саффир улсын албан ёсны мэдээллийн хиймэл оюун ухаан SapphireGPT. Саффир улсын түүх, хаад хатад, 5 хот, овгууд, 30 цол хэргэм, төрийн зарлиг, ZGRP-ийн 6 улсын мэдээллийг нарийн чанд, үнэн зөв тайлбарлана. Албан бүртгэлд байхгүй мэдээллийг хэзээ ч зохиохгүй.',
+    systemPrompt: 'Та бол Саффир улсын төрийн албан ёсны мэдээллийн хиймэл оюун ухаан SapphireGPT. Саффир улсын түүх, хаад хатад, хотууд, овгууд, цол хэргэм, төрийн зарлиг болон ерөнхий аливаа асуултад үргэлж ChatGPT шиг маш ухаалаг, өгөөжтэй, бүрэн дүүрэн хариулна. Хэзээ ч хариултгүй хоосон үлдээхгүй.',
   },
   {
     id: 'court_advisor',
     name: 'Ордны Дээд Зөвлөх',
     description: 'Хааны ордны ёс жаяг, зарлиг, цол хэргэм, язгууртны дэг жаяг',
     iconName: 'Sparkles',
-    systemPrompt: 'Та бол Саффир улсын Хааны ордны тэргүүн зөвлөх. Язгууртны өндөр ёс зүй, төрийн дэг журам, овгуудын харилцаа, хааны зарлигийн хэрэгжилтэд зөвлөгөө өгнө.',
+    systemPrompt: 'Та бол Саффир улсын Хааны ордны тэргүүн зөвлөх. Язгууртны өндөр ёс зүй, төрийн дэг журам, овгуудын харилцаа, хааны зарлигийн хэрэгжилтэд ямагт яруу тод, өгөөжтэй хариулна.',
   },
   {
     id: 'zgrp_guide',
     name: 'ZGRP Ертөнцийн Хөтөч',
     description: 'Zet Generation Roleplay-ийн 6 улс, дүрийн сонголт, дүрэм',
     iconName: 'Globe',
-    systemPrompt: 'Та бол ZGRP (Zet Generation Roleplay)-ийн албан ёсны хөтөч. Tiangshi, Sapphire, Calverath, BNSU, United Kingdom, Nesindrax 6 улсын ялгаа, цаг үе, дүрийн дүрэм (чөтгөр шулам Саффирт хориотой г.м)-ийг тайлбарлана.',
+    systemPrompt: 'Та бол ZGRP (Zet Generation Roleplay)-ийн албан ёсны хөтөч. Tiangshi, Sapphire, Calverath, BNSU, United Kingdom, Nesindrax 6 улсын ялгаа, цаг үе, дүрийн дүрмийг чадварлаг тайлбарлана.',
   },
   {
     id: 'coder',
@@ -40,18 +40,18 @@ export const PERSONAS: Persona[] = [
 
 export const MODELS: ModelOption[] = [
   {
-    id: 'gemini-flash-latest',
-    name: 'Sapphire Flash (Хэт хурдан)',
-    description: 'Маш хурдан агшин зуурт хариулах горим',
-    badge: 'Аянга',
-    recommendedFor: 'Шуурхай лавлагаа, хурдан яриа',
+    id: 'gemini-3.1-flash-lite',
+    name: 'Sapphire Flash 3.1 (Хэт хурдан ⚡)',
+    description: 'Аянга мэт шуурхай, хоцрогдолгүй шууд хариулах горим',
+    badge: 'Аянга ⚡',
+    recommendedFor: 'Шуурхай чат, агшин зуурын хариулт',
   },
   {
-    id: 'gemini-3.8-flash',
-    name: 'Sapphire 3.8 Flash',
-    description: 'Саффир улсын дэлгэрэнгүй мэдээлэл',
-    badge: 'Стандарт',
-    recommendedFor: 'Төрийн лавлах, түүхэн хайлт',
+    id: 'gemini-3.5-flash',
+    name: 'Sapphire 3.5 Flash',
+    description: 'Өндөр чадвартай, ухаалаг задлан шинжилгээ',
+    badge: 'Ухаалаг',
+    recommendedFor: 'Бүрэн лавлагаа, дэлгэрэнгүй тайлбар',
   },
   {
     id: 'gemini-3.1-pro-preview',

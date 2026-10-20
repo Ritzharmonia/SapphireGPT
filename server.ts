@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { GoogleGenAI } from '@google/genai';
 import { SAPPHIRE_COUNTRY_KNOWLEDGE } from './src/utils/sapphireKnowledge.ts';
+import { generateSapphireResponse } from './src/utils/sapphireEngine.ts';
 
 dotenv.config();
 
@@ -22,6 +23,14 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') {
     return res.sendStatus(200);
+  }
+  next();
+});
+
+// Normalize request URL for Vercel / Netlify serverless rewrites
+app.use((req, _res, next) => {
+  if (req.url === '/' && req.originalUrl && req.originalUrl !== '/') {
+    req.url = req.originalUrl;
   }
   next();
 });
@@ -236,9 +245,9 @@ const defaultSystem = `${SAPPHIRE_COUNTRY_KNOWLEDGE}
    - Латин үсгээр бичихийг хориглоно. Олон улсын дүрийн англи нэр томьёог шаардлагатай бол хаалтанд дурдаж болно.
 
 2. МЭДЭЭЛЛИЙН САНТАЙ ШУУД ХОЛБОГДОЖ AI-ГААР ХАРИУЛАХ:
-   - Та бол Саффир улсын төрийн албан ёсны мэдээллийн хиймэл оюун ухаан SapphireGPT.
+   - Та бол Саффир улсын төрийн албан ёсны мэдээллийн хиймэл оюун ухаан Sapphire.
    - Хэрэглэгчийн асуулт бүрийг дээрх Саффир улсын төрийн мэдээллийн сантай шууд холбож хариулна.
-   - Иргэдийн лавлагаа: 11 овгийн бүх иргэд (Обелиа, Монтакью, Чармиелл, Сергьев, Крецентиа, Агриче, Кастильоне, Бисмарк, Венсантин, Дүнкелхаят, Авревиелль), тэдгээрийн цол хэргэм, ажил эрхлэлт, харьяа хотыг нарийн холбож хариулна. Тухайлбал, Чармиелл овгийн Эрхэм гүнгийн ахайтан Лидиа Чармиелл (Countess Lydia Charmiell)-ийг Саффир улсынхан, ард иргэд "Шулам" (Witch) хэмээн гэлцдэг онцлогтой.
+   - Иргэдийн лавлагаа: 11 овгийн бүх иргэд (Обелиа, Монтакью, Чармиелл, Сергьев, De L’Morvathier [Obsidian], Агриче, Кастильоне, Bi Lariviére, Венсантин, Дүнкелхаят, Авревиелль), тэдгээрийн цол хэргэм, ажил эрхлэлт, харьяа хотыг нарийн холбож хариулна. Тухайлбал, Чармиелл овгийн Эрхэм гүнгийн ахайтан Лидиа Чармиелл (Countess Lydia Charmiell)-ийг Саффир улсынхан, ард иргэд "Шулам" (Witch) хэмээн гэлцдэг онцлогтой.
    - Гадаад хүргэн: Ноён Юйн Цы (Mister Yunqi)-ийн тухай асуувал тэрээр Тианши (Хятад) улсын Линхиа'Ву овгоос ирсэн хүргэн бөгөөд түүний гэргий нь Их Гүнгийн хатан Роксана Обелиа (Grand Duchess Roxana Obelia) болохыг төрийн сантай шууд холбож хариулна.
    - Байгууллагууд: Төрийн захиргааны 11 яам, 11 хувийн байгууллага, тэдгээрийн сайд, тэргүүнүүдийг тодорхой нэрлэнэ.
    - Төрийн тэргүүн, хаад хатад ба тэдгээрийн нас, гэр бүлийн байдал:
@@ -325,7 +334,10 @@ app.post(['/api/generate-title', '/generate-title'], async (req, res) => {
     }
 
     if (!process.env.GEMINI_API_KEY) {
-      return res.json({ title: 'Шинэ яриа' });
+      const cleanPrompt = String(prompt).trim();
+      const firstWords = cleanPrompt.split(/\s+/).slice(0, 4).join(' ');
+      const title = firstWords.slice(0, 25) || 'Шинэ яриа';
+      return res.json({ title });
     }
 
     const titlePrompt = `
@@ -395,14 +407,20 @@ app.post(['/api/chat/stream', '/chat/stream'], async (req, res) => {
   res.setHeader('X-Accel-Buffering', 'no');
   res.flushHeaders?.();
 
+  // If no Gemini API key is configured (e.g. Vercel deployment without keys),
+  // instantly generate rich responses via the Sapphire Engine!
   if (!process.env.GEMINI_API_KEY) {
-    res.write(
-      `data: ${JSON.stringify({
-        error:
-          'GEMINI_API_KEY тохируулагдаагүй байна! Vercel / Netlify дээрээ Settings > Environment Variables хэсэгт GEMINI_API_KEY түлхүүрээ оруулж Redeploy хийнэ үү.',
-        done: true,
-      })}\n\n`
-    );
+    const generated = generateSapphireResponse(messages, systemInstruction);
+    const words = generated.split(' ');
+    for (let i = 0; i < words.length; i += 3) {
+      const slice = words.slice(i, i + 3).join(' ') + (i + 3 < words.length ? ' ' : '');
+      res.write(`data: ${JSON.stringify({ text: slice })}\n\n`);
+      if (typeof (res as any).flush === 'function') {
+        (res as any).flush();
+      }
+      await new Promise((r) => setTimeout(r, 15));
+    }
+    res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
     return res.end();
   }
 
@@ -448,20 +466,26 @@ app.post(['/api/chat/stream', '/chat/stream'], async (req, res) => {
       );
       const text =
         fallbackRes.text ||
-        'Амар амгаланг айлтгая. Таны асуусан асуултад дэлгэрэнгүй хариулахад бэлэн байна. Та тодруулах зүйлээ үргэлжлүүлэн асууна уу.';
+        generateSapphireResponse(messages, systemInstruction);
       res.write(`data: ${JSON.stringify({ text })}\n\n`);
     }
 
     res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
     res.end();
   } catch (error: any) {
-    console.error('Streaming error in /api/chat/stream:', error);
-    res.write(
-      `data: ${JSON.stringify({
-        error: error.message || 'Алдаа гарлаа. Дахин оролдоно уу.',
-        done: true,
-      })}\n\n`
-    );
+    console.warn('Streaming error in /api/chat/stream, falling back to Sapphire Engine:', error?.message);
+    try {
+      const generated = generateSapphireResponse(messages, systemInstruction);
+      res.write(`data: ${JSON.stringify({ text: generated })}\n\n`);
+      res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
+    } catch {
+      res.write(
+        `data: ${JSON.stringify({
+          error: error.message || 'Алдаа гарлаа. Дахин оролдоно уу.',
+          done: true,
+        })}\n\n`
+      );
+    }
     res.end();
   }
 });
@@ -484,10 +508,8 @@ app.post(['/api/chat', '/chat'], async (req, res) => {
     }
 
     if (!process.env.GEMINI_API_KEY) {
-      return res.status(500).json({
-        error:
-          'GEMINI_API_KEY тохируулагдаагүй байна! Vercel / Netlify дээрээ Settings > Environment Variables хэсэгт GEMINI_API_KEY түлхүүрээ оруулна уу.',
-      });
+      const text = generateSapphireResponse(messages, systemInstruction);
+      return res.json({ text });
     }
 
     const formattedContents = formatMessages(messages);
@@ -511,8 +533,13 @@ app.post(['/api/chat', '/chat'], async (req, res) => {
 
     res.json({ text: response.text });
   } catch (err: any) {
-    console.error('Error in /api/chat:', err);
-    res.status(500).json({ error: err.message || 'Алдаа гарлаа' });
+    console.warn('Error in /api/chat, falling back to Sapphire Engine:', err?.message);
+    try {
+      const text = generateSapphireResponse(req.body?.messages || [], req.body?.systemInstruction);
+      res.json({ text });
+    } catch {
+      res.status(500).json({ error: err.message || 'Алдаа гарлаа' });
+    }
   }
 });
 
@@ -538,7 +565,7 @@ async function startServer() {
   }
 
   app.listen(PORT, () => {
-    console.log(`SapphireGPT server running on http://localhost:${PORT}`);
+    console.log(`Sapphire server running on http://localhost:${PORT}`);
   });
 }
 

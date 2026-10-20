@@ -54,7 +54,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         <div className="flex items-center justify-between border-b border-[#121c45] pb-3">
           <div className="flex items-center gap-2.5">
             <SapphireIcon size={24} glow />
-            <h2 className="text-base font-bold text-white">SapphireGPT Тохиргоо</h2>
+            <h2 className="text-base font-bold text-white">Sapphire Тохиргоо</h2>
           </div>
           <button
             onClick={onClose}
@@ -70,7 +70,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             Хувийн зааварчилгаа (Custom Instructions)
           </label>
           <p className="text-[11px] text-slate-400">
-            SapphireGPT тантай харилцахдаа анхаарах зүйлс, хариулах хэлбэр эсвэл таны мэргэжил, сонирхлын тухай:
+            Sapphire тантай харилцахдаа анхаарах зүйлс, хариулах хэлбэр эсвэл таны мэргэжил, сонирхлын тухай:
           </p>
           <textarea
             value={instruction}
@@ -133,11 +133,11 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           </div>
         </div>
 
-        {/* About SapphireGPT */}
+        {/* About Sapphire */}
         <div className="rounded-xl bg-[#060a1c]/80 p-3 border border-[#121c42] text-[11px] text-slate-400 space-y-1">
           <div className="flex items-center gap-1.5 text-sky-400 font-semibold">
             <Sparkles size={13} />
-            <span>SapphireGPT AI Engine</span>
+            <span>Sapphire AI Engine</span>
           </div>
           <p>
             Хар хөх (Sapphire Navy) өнгө төрхтэй, хамгийн сүүлийн үеийн Gemini 3.8 Flash хөдөлгүүртэй бүрэн интеграцлагдсан ухаалаг систем.

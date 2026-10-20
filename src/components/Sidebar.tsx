@@ -193,7 +193,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="flex items-center justify-between px-3.5 py-3 border-b border-white/5">
           <div className="flex items-center gap-2">
             <SapphireIcon size={22} glow={false} />
-            <span className="font-semibold text-sm tracking-tight text-white">SapphireGPT</span>
+            <span className="font-semibold text-sm tracking-tight text-white">Sapphire</span>
           </div>
           <button
             onClick={onToggle}

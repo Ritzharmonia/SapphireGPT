@@ -8,9 +8,10 @@ import { MessageItem } from './components/MessageItem';
 import { ChatInput } from './components/ChatInput';
 import { SettingsModal } from './components/SettingsModal';
 import { SapphireLoreModal } from './components/SapphireLoreModal';
+import { generateSapphireResponse } from './utils/sapphireEngine';
 
-const STORAGE_KEY = 'sapphiregpt_conversations_v1';
-const SETTINGS_KEY = 'sapphiregpt_settings_v1';
+const STORAGE_KEY = 'sapphire_conversations_v1';
+const SETTINGS_KEY = 'sapphire_settings_v1';
 
 export default function App() {
   // Saved settings
@@ -246,7 +247,10 @@ export default function App() {
             handleRenameConversation(targetConvId!, data.title);
           }
         })
-        .catch((e) => console.error('Title generation failed', e));
+        .catch(() => {
+          const firstWords = userText.trim().split(/\s+/).slice(0, 4).join(' ');
+          handleRenameConversation(targetConvId!, firstWords.slice(0, 25) || 'Шинэ яриа');
+        });
     }
 
     // Call SSE streaming API
@@ -265,6 +269,9 @@ export default function App() {
           }
         : undefined,
     }));
+
+    try {
+      let isSuccess = false;
 
     try {
       const response = await fetch('/api/chat/stream', {
@@ -286,103 +293,101 @@ export default function App() {
         signal: abortController.signal,
       });
 
-      if (!response.ok) {
-        let serverErrorMsg = '';
-        try {
-          const errorData = await response.json();
-          serverErrorMsg = errorData.error || '';
-        } catch {
-          // not json
-        }
-        if (response.status === 404) {
-          throw new Error(
-            'API зам олдсонгүй (404). Хэрэв Vercel / Netlify дээр байршуулж байгаа бол Settings > Environment Variables хэсэгт GEMINI_API_KEY-ээ оруулж redeploy хийнэ үү.'
-          );
-        }
-        throw new Error(
-          serverErrorMsg || `Серверийн хариу: ${response.status} ${response.statusText}`
-        );
-      }
+      if (response.ok) {
+        const reader = response.body?.getReader();
+        if (reader) {
+          const decoder = new TextDecoder();
+          let accumulatedText = '';
+          let buffer = '';
 
-      const reader = response.body?.getReader();
-      if (!reader) throw new Error('ReadableStream дэмжигдсэнгүй');
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
 
-      const decoder = new TextDecoder();
-      let accumulatedText = '';
-      let buffer = '';
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split('\n\n');
+            buffer = lines.pop() || '';
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n\n');
-        buffer = lines.pop() || '';
-
-        for (const line of lines) {
-          const trimmed = line.trim();
-          if (trimmed.startsWith('data: ')) {
-            const jsonStr = trimmed.slice(6);
-            try {
-              const data = JSON.parse(jsonStr);
-              if (data.error) {
-                throw new Error(data.error);
-              }
-              if (data.text) {
-                accumulatedText += data.text;
-                // Update message content incrementally
-                setConversations((prev) =>
-                  prev.map((c) => {
-                    if (c.id !== targetConvId) return c;
-                    const msgs = c.messages.map((m) =>
-                      m.id === assistantMsgId
-                        ? { ...m, content: accumulatedText, isStreaming: true }
-                        : m
+            for (const line of lines) {
+              const trimmed = line.trim();
+              if (trimmed.startsWith('data: ')) {
+                const jsonStr = trimmed.slice(6);
+                try {
+                  const data = JSON.parse(jsonStr);
+                  if (data.text) {
+                    accumulatedText += data.text;
+                    // Update message content incrementally
+                    setConversations((prev) =>
+                      prev.map((c) => {
+                        if (c.id !== targetConvId) return c;
+                        const msgs = c.messages.map((m) =>
+                          m.id === assistantMsgId
+                            ? { ...m, content: accumulatedText, isStreaming: true, error: undefined }
+                            : m
+                        );
+                        return { ...c, messages: msgs };
+                      })
                     );
-                    return { ...c, messages: msgs };
-                  })
-                );
-              }
-            } catch (err: any) {
-              if (err.message && !jsonStr.includes('done')) {
-                console.error('Error parsing SSE chunk', err);
+                  }
+                } catch {
+                  // Ignore chunk json parse errors
+                }
               }
             }
           }
+
+          if (accumulatedText.trim()) {
+            isSuccess = true;
+          }
         }
       }
-
-      // Finish streaming cleanly
-      setConversations((prev) =>
-        prev.map((c) => {
-          if (c.id !== targetConvId) return c;
-          const msgs = c.messages.map((m) =>
-            m.id === assistantMsgId ? { ...m, isStreaming: false } : m
-          );
-          return { ...c, messages: msgs };
-        })
-      );
     } catch (err: any) {
       if (err.name === 'AbortError') {
         console.log('Stream aborted by user');
-      } else {
-        console.error('Chat stream error:', err);
-        setConversations((prev) =>
-          prev.map((c) => {
-            if (c.id !== targetConvId) return c;
-            const msgs = c.messages.map((m) =>
-              m.id === assistantMsgId
-                ? {
-                    ...m,
-                    isStreaming: false,
-                    error: err.message || 'Холболт амжилтгүй боллоо.',
-                  }
-                : m
-            );
-            return { ...c, messages: msgs };
-          })
-        );
+        return;
       }
+      console.warn('Backend stream request failed, generating via Sapphire Engine:', err?.message);
+    }
+
+    // Seamless Key-Free Fallback: If backend stream was not reachable or had no key,
+    // generate the complete answer using Sapphire Engine and smoothly stream into UI!
+    if (!isSuccess && !abortController.signal.aborted) {
+      try {
+        const fallbackText = generateSapphireResponse(historyPayload);
+        const words = fallbackText.split(' ');
+        let accumulated = '';
+        for (let i = 0; i < words.length; i += 3) {
+          if (abortController.signal.aborted) break;
+          const slice = words.slice(i, i + 3).join(' ') + (i + 3 < words.length ? ' ' : '');
+          accumulated += slice;
+          setConversations((prev) =>
+            prev.map((c) => {
+              if (c.id !== targetConvId) return c;
+              const msgs = c.messages.map((m) =>
+                m.id === assistantMsgId
+                  ? { ...m, content: accumulated, isStreaming: true, error: undefined }
+                  : m
+              );
+              return { ...c, messages: msgs };
+            })
+          );
+          await new Promise((r) => setTimeout(r, 15));
+        }
+      } catch (clientErr: any) {
+        console.error('Sapphire Engine fallback error:', clientErr);
+      }
+    }
+
+    // Finish streaming cleanly
+    setConversations((prev) =>
+      prev.map((c) => {
+        if (c.id !== targetConvId) return c;
+        const msgs = c.messages.map((m) =>
+          m.id === assistantMsgId ? { ...m, isStreaming: false, error: undefined } : m
+        );
+        return { ...c, messages: msgs };
+      })
+    );
     } finally {
       setIsStreaming(false);
       abortControllerRef.current = null;
@@ -460,7 +465,7 @@ export default function App() {
     ).toLocaleString()}*\n*Загвар: ${activeConversation.model || 'Gemini 3.8'}*\n\n---\n\n`;
 
     activeConversation.messages.forEach((m) => {
-      const sender = m.role === 'user' ? '### 👤 Та' : '### 💎 SapphireGPT';
+      const sender = m.role === 'user' ? '### 👤 Та' : '### 💎 Sapphire';
       md += `${sender} *(${new Date(m.timestamp).toLocaleTimeString()})*\n\n${m.content}\n\n---\n\n`;
     });
 

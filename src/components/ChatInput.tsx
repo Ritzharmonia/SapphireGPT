@@ -268,7 +268,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
 
       {/* Minimalist Footnote */}
       <p className="mt-2 text-center text-[11px] text-slate-400 select-none">
-        SapphireGPT нь алдаа гаргаж болзошгүй. Мэдээллээ нягтална уу.
+        Sapphire нь алдаа гаргаж болзошгүй. Мэдээллээ нягтална уу.
       </p>
     </div>
   );

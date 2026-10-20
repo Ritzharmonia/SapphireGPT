@@ -325,24 +325,25 @@ export const SapphireLoreModal: React.FC<SapphireLoreModalProps> = ({
                   </ul>
                 </div>
 
-                {/* 5. CRESCENTIA */}
+                {/* 5. DE L’MORVATHIER [OBSIDIAN] */}
                 <div className="p-3.5 rounded-xl bg-[#091130] border border-[#172559]">
                   <div className="flex items-center justify-between pb-1.5 border-b border-[#142252] mb-2">
-                    <span className="font-bold text-white text-sm">5. 𝐂𝐑𝐄𝐒𝐂𝐄𝐍𝐓𝐈𝐀 / Крецентиа (11)</span>
-                    <span className="text-[10px] text-slate-400 font-mono">Язгууртан овог</span>
+                    <span className="font-bold text-white text-sm">5. 𝐃𝐄 𝐋’𝐌𝐎𝐑𝐕𝐀𝐓𝐇𝐈𝐄𝐑 (𝐎𝐛𝐬𝐢𝐝𝐢𝐚𝐧) / Де Л’Морватье (11)</span>
+                    <span className="text-[10px] text-emerald-400 font-mono">Нэр шинэчлэгдсэн</span>
                   </div>
+                  <p className="text-[11px] text-slate-400 mb-2 italic">Хуучнаар Люк Кресентиа овог нь дотооддоо хуралдаж De L’Morvathier (Де Л’Морватье) болсон. Овгийн тодотгол Obsidian хэвээр үлдсэн.</p>
                   <ul className="space-y-1 text-slate-300">
-                    <li>• Mister Balthazar Luc Crescentia</li>
-                    <li>• Mister Finn Luc Crescentia</li>
-                    <li>• Mister Matthew Luc Crescentia</li>
-                    <li>• Mister Arnold Luc Crescentia</li>
-                    <li>• Miss Elaris Luc Crescentia</li>
-                    <li>• Miss Vanessa Luc Crescentia</li>
-                    <li>• Miss Seira Luc Crescentia</li>
-                    <li>• Mister Carlton Luc Crescentia</li>
-                    <li>• Miss Lucianna Luc Crescentia</li>
-                    <li>• Mister Astorias Luc Crescentia</li>
-                    <li>• Miss Syrine Luc Crescentia</li>
+                    <li>• Mister Balthazar De L’Morvathier</li>
+                    <li>• Mister Finn De L’Morvathier</li>
+                    <li>• Mister Matthew De L’Morvathier</li>
+                    <li>• Mister Arnold De L’Morvathier</li>
+                    <li>• Miss Elaris De L’Morvathier</li>
+                    <li>• Miss Vanessa De L’Morvathier</li>
+                    <li>• Miss Seira De L’Morvathier</li>
+                    <li>• Mister Carlton De L’Morvathier</li>
+                    <li>• Miss Lucianna De L’Morvathier</li>
+                    <li>• Mister Astorias De L’Morvathier</li>
+                    <li>• Miss Syrine De L’Morvathier</li>
                   </ul>
                 </div>
 
@@ -383,20 +384,21 @@ export const SapphireLoreModal: React.FC<SapphireLoreModalProps> = ({
                   </ul>
                 </div>
 
-                {/* 8. BISMARCK */}
+                {/* 8. BI LARIVIÉRE */}
                 <div className="p-3.5 rounded-xl bg-[#091130] border border-[#172559]">
                   <div className="flex items-center justify-between pb-1.5 border-b border-[#142252] mb-2">
-                    <span className="font-bold text-white text-sm">8. 𝐁𝐈𝐒𝐌𝐀𝐑𝐂𝐊 / Бисмарк (7)</span>
-                    <span className="text-[10px] text-slate-400 font-mono">Язгууртан овог</span>
+                    <span className="font-bold text-white text-sm">8. 𝐁𝐈 𝐋𝐀𝐑𝐈𝐕𝐈É𝐑𝐄 / Би Ларивьер (7)</span>
+                    <span className="text-[10px] text-emerald-400 font-mono">Нэр шинэчлэгдсэн</span>
                   </div>
+                  <p className="text-[11px] text-slate-400 mb-2 italic">Хуучнаар Bismarck овог албан ёсоор нэрээ өөрчилж Bi Lariviére болсон.</p>
                   <ul className="space-y-1 text-slate-300">
-                    <li>• Miss Irine Bismarck</li>
-                    <li>• Mister Christopher Bismarck</li>
-                    <li>• Mister Leewon Bismarck</li>
-                    <li>• Miss Goldwyn Bismarck</li>
-                    <li>• Miss Ayna Bismarck</li>
-                    <li>• Miss Sophia Bismarck</li>
-                    <li>• Miss Violet Bismarck</li>
+                    <li>• Miss Irine Bi Lariviére</li>
+                    <li>• Mister Christopher Bi Lariviére</li>
+                    <li>• Mister Leewon Bi Lariviére</li>
+                    <li>• Miss Goldwyn Bi Lariviére</li>
+                    <li>• Miss Ayna Bi Lariviére</li>
+                    <li>• Miss Sophia Bi Lariviére</li>
+                    <li>• Miss Violet Bi Lariviére</li>
                   </ul>
                 </div>
 

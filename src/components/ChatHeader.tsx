@@ -68,7 +68,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
             className="flex items-center gap-2 rounded-xl px-2.5 py-1.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
           >
             <SapphireIcon size={18} />
-            <span className="font-semibold tracking-tight text-white">SapphireGPT</span>
+            <span className="font-semibold tracking-tight text-white">Sapphire</span>
             <ChevronDown
               size={14}
               className={`text-slate-400 transition-transform ${showModelDropdown ? 'rotate-180' : ''}`}

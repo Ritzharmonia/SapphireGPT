@@ -219,6 +219,69 @@ export const SapphireLoreModal: React.FC<SapphireLoreModalProps> = ({
               </div>
 
               {/* 11 Houses Grid */}
+              {/* QUEEN LIBERTIA 15 TITLES BANNER */}
+              <div className="p-4 rounded-xl bg-gradient-to-r from-[#0c1840] via-[#112359] to-[#0c1840] border border-amber-500/40 shadow-lg">
+                <div className="flex items-center justify-between pb-2 border-b border-amber-500/20 mb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-amber-400 font-bold text-sm">👑 ХАТАН ХААН ЛИБЕРТИАГИЙН 15 ЦОЛТНУУД</span>
+                    <span className="px-2 py-0.5 rounded text-[10px] bg-amber-500/20 text-amber-300 font-semibold border border-amber-500/30">Албан ёсны бүртгэл</span>
+                  </div>
+                  <button
+                    onClick={() => handleAsk("Либертиа хатан хааны цолтнуудыг бүрэн жагсааж танилцуулна уу.")}
+                    className="flex items-center gap-1 text-[11px] text-amber-300 hover:text-white"
+                  >
+                    <span>Асуух</span>
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 text-xs">
+                  <div className="p-2 rounded-lg bg-[#091130] border border-amber-500/30 text-slate-200">
+                    <span className="text-amber-400 font-semibold">1. Хатан:</span> <b className="text-white">Libertia Von Montaque</b>
+                  </div>
+                  <div className="p-2 rounded-lg bg-[#091130] border border-[#1b2b68] text-slate-200">
+                    <span className="text-sky-300 font-semibold">2. Ханхүү:</span> Claude De alger obelia
+                  </div>
+                  <div className="p-2 rounded-lg bg-[#091130] border border-[#1b2b68] text-slate-200">
+                    <span className="text-pink-300 font-semibold">3. Гүнж:</span> Tiara Von Montaque
+                  </div>
+                  <div className="p-2 rounded-lg bg-[#091130] border border-[#1b2b68] text-slate-200">
+                    <span className="text-sky-300 font-semibold">4. Их канцлер:</span> Caesar Charmiell
+                  </div>
+                  <div className="p-2 rounded-lg bg-[#091130] border border-[#1b2b68] text-slate-200">
+                    <span className="text-sky-300 font-semibold">5. Зөвлөх:</span> Elias Charmiell
+                  </div>
+                  <div className="p-2 rounded-lg bg-[#091130] border border-[#1b2b68] text-slate-200">
+                    <span className="text-sky-300 font-semibold">6. Их гүн:</span> Ivan De alger obelia
+                  </div>
+                  <div className="p-2 rounded-lg bg-[#091130] border border-[#1b2b68] text-slate-200">
+                    <span className="text-sky-300 font-semibold">7. Гүн:</span> Andres Agriche
+                  </div>
+                  <div className="p-2 rounded-lg bg-[#091130] border border-[#1b2b68] text-slate-200">
+                    <span className="text-pink-300 font-semibold">8. Маркизын ахай:</span> Serena Charmiell
+                  </div>
+                  <div className="p-2 rounded-lg bg-[#091130] border border-[#1b2b68] text-slate-200">
+                    <span className="text-pink-300 font-semibold">9. Эрхэм гүнгийн ахай:</span> Lydia Charmiell
+                  </div>
+                  <div className="p-2 rounded-lg bg-[#091130] border border-[#1b2b68] text-slate-200">
+                    <span className="text-sky-300 font-semibold">10. Виконт:</span> Carlisle Agriche
+                  </div>
+                  <div className="p-2 rounded-lg bg-[#091130] border border-[#1b2b68] text-slate-200">
+                    <span className="text-sky-300 font-semibold">11. Барон:</span> Zaifer De alger obelia
+                  </div>
+                  <div className="p-2 rounded-lg bg-[#091130] border border-[#1b2b68] text-slate-200">
+                    <span className="text-sky-300 font-semibold">12. Барон:</span> Ron Charmiell
+                  </div>
+                  <div className="p-2 rounded-lg bg-[#091130] border border-[#1b2b68] text-slate-200">
+                    <span className="text-amber-300 font-semibold">13. Ихэс ноён:</span> Caerwyn Von Montaque
+                  </div>
+                  <div className="p-2 rounded-lg bg-[#091130] border border-[#1b2b68] text-slate-200">
+                    <span className="text-amber-300 font-semibold">14. Ихэс ноён:</span> Siegren Von Montaque
+                  </div>
+                  <div className="p-2 rounded-lg bg-[#091130] border border-[#1b2b68] text-slate-200">
+                    <span className="text-pink-300 font-semibold">15. Ихэс хатагтай:</span> Hei Ying Avrevielle
+                  </div>
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                 {/* 1. OBELIA */}
                 <div className="p-3.5 rounded-xl bg-[#091130] border border-[#172559]">
@@ -391,6 +454,11 @@ export const SapphireLoreModal: React.FC<SapphireLoreModalProps> = ({
                     <span className="text-[10px] text-emerald-400 font-mono">Нэр шинэчлэгдсэн</span>
                   </div>
                   <p className="text-[11px] text-slate-400 mb-2 italic">Хуучнаар Bismarck овог албан ёсоор нэрээ өөрчилж Bi Lariviére болсон.</p>
+                  <div className="mb-2 p-2 rounded bg-[#0e1a42] border border-[#1b2b68] text-[11px] text-amber-200/90 font-mono">
+                    <div><b>Lariviére last:</b></div>
+                    <div>• Pétillane ( male )-séduisante</div>
+                    <div>• Recherché ( female )-séduisante</div>
+                  </div>
                   <ul className="space-y-1 text-slate-300">
                     <li>• Miss Irine Bi Lariviére</li>
                     <li>• Mister Christopher Bi Lariviére</li>
@@ -442,6 +510,34 @@ export const SapphireLoreModal: React.FC<SapphireLoreModalProps> = ({
                     <li>• Miss Velit Avrevielle</li>
                     <li>• Miss Scarlett Avrevielle</li>
                   </ul>
+                </div>
+
+                {/* 12. PEDELIAN */}
+                <div className="p-3.5 rounded-xl bg-[#091130] border border-sky-500/40 md:col-span-2">
+                  <div className="flex items-center justify-between pb-1.5 border-b border-[#142252] mb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-sky-300 text-sm">12. 𝐏𝐄𝐃𝐄𝐋𝐈𝐀𝐍 / Педелиан</span>
+                      <span className="px-2 py-0.5 rounded text-[10px] bg-sky-500/20 text-sky-300 border border-sky-500/30">Шинэ овог — Sunset Vale</span>
+                    </div>
+                    <span className="text-[11px] text-amber-300 font-mono font-semibold">Chalcedony (Калцедон чулуу)</span>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs mb-2">
+                    <div className="p-2.5 rounded-lg bg-[#0e1a42] border border-[#1b2b68]">
+                      <div className="font-semibold text-white mb-1">Овгийн ласт хэв маяг:</div>
+                      <div className="space-y-1 text-slate-300 font-mono text-[11px]">
+                        <div>• Овгийн ласт: <b className="text-sky-300">Name Pedelɩan</b></div>
+                        <div>• Ноён: <span className="text-emerald-300">Name ɬ ɕʜalcerɩte Pedelɩan</span></div>
+                        <div>• Хатагтай: <span className="text-pink-300">Name ȴ ɕʜalcenɩtes Pedelɩan</span></div>
+                        <div>• Хүүхэд: <span className="text-amber-300">Name-ɕʜalcerɩte ȴ Pedelɩan</span></div>
+                      </div>
+                    </div>
+                    <div className="p-2.5 rounded-lg bg-[#0e1a42] border border-[#1b2b68]">
+                      <div className="font-semibold text-sky-300 mb-1">House of Pedelian (Танилцуулга):</div>
+                      <p className="text-[11px] text-slate-300 leading-relaxed italic">
+                        "Тэнгэрлэг эрх чөлөө, ариун итгэл үнэмшил, үл бөхийх сэтгэлийн бэлгэдэл болсон Педелиан гэр бүл нь өөрийн үзэл санаа, эрхэм чанар, үнэт зүйлсээрээ онцгойрон оршино. Тэдний хувьд эрх чөлөө гэдэг нь хувь заяагаа өөрөө тодорхойлох ариун эрх юм..."
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -929,7 +1025,7 @@ export const SapphireLoreModal: React.FC<SapphireLoreModalProps> = ({
                     <span className="text-xs font-semibold text-white">1 га = 350,000 | 1 км² = 1,000,000 зоос</span>
                   </div>
                   <div className="mt-2 text-xs text-slate-300 space-y-1">
-                    <div><b>Овгууд:</b> 𝐀𝐆𝐑𝐈𝐂𝐇𝐄 (Язгууртан) — Roxana Agriche | 𝐀𝐕𝐑𝐄𝐕𝐈𝐄𝐋𝐋𝐄 (Эгэл) — Hei'Ying Avrevielle</div>
+                    <div><b>Овгууд:</b> 𝐀𝐆𝐑𝐈𝐂𝐇𝐄 (Язгууртан) — Roxana Agriche | 𝐀𝐕𝐑𝐄𝐕𝐈𝐄𝐋𝐋𝐄 (Эгэл) — Hei'Ying Avrevielle | 𝐏𝐄𝐃𝐄𝐋𝐈𝐀𝐍 (Эгэл, Chalcedony)</div>
                     <div className="text-slate-400"><b>Онцлог:</b> Алт, мөнгө, үнэт металл, бүх төрлийн үнэт чулуу, эрдэнэс, зоос цутгалт, дархны урлал, буу, тансаг механик тоногтой хөгжим, сүйх тэрэг, тавилга.</div>
                   </div>
                 </div>

@@ -40,22 +40,22 @@ export const PERSONAS: Persona[] = [
 
 export const MODELS: ModelOption[] = [
   {
-    id: 'gemini-3.1-flash-lite',
-    name: 'Sapphire Flash 3.1 (Хэт хурдан ⚡)',
-    description: 'Аянга мэт шуурхай, хоцрогдолгүй шууд хариулах горим',
-    badge: 'Аянга ⚡',
-    recommendedFor: 'Шуурхай чат, агшин зуурын хариулт',
+    id: 'gemini-3.5-flash',
+    name: 'Sapphire 3.5 Flash (Шилдэг ⚡)',
+    description: 'Аянга мэт шуурхай, ухаалаг бүрэн дүүрэн хариулт',
+    badge: 'Шилдэг ⚡',
+    recommendedFor: 'Шуурхай чат, бүрэн лавлагаа, дэлгэрэнгүй тайлбар',
   },
   {
-    id: 'gemini-3.5-flash',
-    name: 'Sapphire 3.5 Flash',
+    id: 'gemini-3.6-flash',
+    name: 'Sapphire 3.6 Flash',
     description: 'Өндөр чадвартай, ухаалаг задлан шинжилгээ',
     badge: 'Ухаалаг',
-    recommendedFor: 'Бүрэн лавлагаа, дэлгэрэнгүй тайлбар',
+    recommendedFor: 'Бүрэн лавлагаа, аналитик шинжилгээ',
   },
   {
-    id: 'gemini-3.1-pro-preview',
-    name: 'Sapphire 3.1 Pro',
+    id: 'gemini-3.8-flash',
+    name: 'Sapphire 3.8 Flash Pro',
     description: 'Гүн задлан шинжилгээ, хууль цааз',
     badge: 'Гүн судалгаа',
     recommendedFor: 'Гүнзгий судалгаа, цогц тооцоолол',

@@ -127,11 +127,9 @@ async function getStreamWithFallback(
 ) {
   const modelsToTry = [
     primaryModel,
-    'gemini-3.1-flash-lite',
     'gemini-3.5-flash',
-    'gemini-3.5-flash-lite',
+    'gemini-3.6-flash',
     'gemini-3.8-flash',
-    'gemini-flash-latest',
   ];
 
   const uniqueModels = Array.from(
@@ -185,11 +183,9 @@ async function getContentWithFallback(
 ) {
   const modelsToTry = [
     primaryModel,
-    'gemini-3.1-flash-lite',
     'gemini-3.5-flash',
-    'gemini-3.5-flash-lite',
+    'gemini-3.6-flash',
     'gemini-3.8-flash',
-    'gemini-flash-latest',
   ];
 
   const uniqueModels = Array.from(
@@ -306,6 +302,13 @@ const defaultSystem = `ТА БОЛ SAPPHIRE — Хэрэглэгчийн бүх 
      • Эдийн засаг, банк: Зурган чек (note screenshot хориотой), цалин 10 ба 20-нд, татвар 30-нд (10k-аас доош татваргүй), хар карт лимитүүд, нүүлгэн шилжүүлэлт 40k/60k.
      • Ёс заншил: Гар үнсэлт (уруулаа арьсанд хүргэхгүй), их титэм (Хатан ба Гүнж 2 л зүүнэ), ноёд бөхийж цээжиндээ гар тавина, хатагтай нар curtsy хийнэ.
      • Алдартай хосууд: 8 хос (Serena & Ren, Tiara & Elias, Zaifer & Ravenna, Dion & Winter, Lydia & Alexander, Roxana & Yunqi, Columbina & Kolya, Ilya & Zigg).
+     • ZGRP (Zet Generation Roleplay) бусад 5 улсын мэдээлэл ба удирдагчид:
+       1. TIANGSHI (Хятад улс): Одоогийн хаан нь ЧИНЗЕ (Qingze). Вант улсын албан ёсны сайт: https://6a61999d3e68e.site123.me/
+       2. CALVERATH (Ид шидийн улс): Одоогийн хатан хаан нь МАРСЕЛЛЕНТ (Marcellent).
+       3. UNITED KINGDOM (Баруун Европ улс): Одоогийн Хаан нь RICHARD, Хатан хаан нь BELLA.
+       4. BNSU (Өмнөд Солонгос улс): Одоогийн Ерөнхийлөгч нь UCIN (Үчин).
+       5. NESINDRAX (Япон улс): Японы соёл, анимэ, манга бүтээлийн дүрүүд.
+       6. SAPPHIRE (Европ улс): Хатан хаан Либертиа Вон Монтакью (10 дахь төрийн тэргүүн, 26 настай).
 
 [САФФИР УЛСЫН МЭДЛЭГИЙН ДЭЛГЭРЭНГҮЙ САН]:
 ${SAPPHIRE_COUNTRY_KNOWLEDGE}`;
@@ -338,7 +341,7 @@ Analyze the following prompt and output a 2-4 word chat title in Mongolian Cyril
 `;
 
     const response = await getContentWithFallback(
-      'gemini-3.1-flash-lite',
+      'gemini-3.5-flash',
       titlePrompt,
       {
         systemInstruction:
@@ -377,7 +380,7 @@ app.post(['/api/chat/stream', '/chat/stream'], async (req, res) => {
   const {
     messages,
     systemInstruction,
-    model = 'gemini-3.1-flash-lite',
+    model = 'gemini-3.5-flash',
     webSearch = false,
   } = req.body;
 
@@ -415,56 +418,74 @@ app.post(['/api/chat/stream', '/chat/stream'], async (req, res) => {
     return res.end();
   }
 
-  const formattedContents = formatMessages(messages);
-
-  const config: any = {
-    systemInstruction: systemInstruction
-      ? `${defaultSystem}\n\nНэмэлт хэрэглэгчийн хүсэлт: ${systemInstruction}`
-      : defaultSystem,
-    temperature: 0.5,
-  };
-
-  if (webSearch) {
-    config.tools = [{ googleSearch: {} }];
-  }
-
   try {
-    const stream = await getStreamWithFallback(
-      model || 'gemini-3.1-flash-lite',
-      formattedContents,
-      config
+    const formattedContents = formatMessages(messages);
+
+    const config: any = {
+      systemInstruction: systemInstruction
+        ? `${defaultSystem}\n\nНэмэлт хэрэглэгчийн хүсэлт: ${systemInstruction}`
+        : defaultSystem,
+      temperature: 0.5,
+    };
+
+    if (webSearch) {
+      config.tools = [{ googleSearch: {} }];
+    }
+
+    const candidateModels = Array.from(
+      new Set([model || 'gemini-3.5-flash', 'gemini-3.5-flash', 'gemini-3.6-flash', 'gemini-3.8-flash'].filter(Boolean))
     );
 
-    let totalStreamedText = '';
+    const client = getAIClient();
+    let hasStreamedText = false;
 
-    for await (const chunk of stream) {
-      if (chunk.text) {
-        totalStreamedText += chunk.text;
-        res.write(`data: ${JSON.stringify({ text: chunk.text })}\n\n`);
-        if (typeof (res as any).flush === 'function') {
-          (res as any).flush();
+    for (const m of candidateModels) {
+      try {
+        const stream = await client.models.generateContentStream({
+          model: m,
+          contents: formattedContents,
+          config,
+        });
+
+        for await (const chunk of stream) {
+          if (chunk.text) {
+            hasStreamedText = true;
+            res.write(`data: ${JSON.stringify({ text: chunk.text })}\n\n`);
+            if (typeof (res as any).flush === 'function') {
+              (res as any).flush();
+            }
+          }
+        }
+
+        if (hasStreamedText) {
+          break; // Successfully completed streaming with model m
+        }
+      } catch (err: any) {
+        console.warn(`Model ${m} streaming error:`, err?.message);
+        if (hasStreamedText) {
+          break;
         }
       }
     }
 
-    // Safety fallback: Never leave the user with an empty message
-    if (!totalStreamedText.trim()) {
-      console.warn('Empty stream encountered, triggering instant fallback generation...');
-      const fallbackRes = await getContentWithFallback(
-        model || 'gemini-3.1-flash-lite',
-        formattedContents,
-        config
-      );
-      const text =
-        fallbackRes.text ||
-        generateSapphireResponse(messages, systemInstruction);
-      res.write(`data: ${JSON.stringify({ text })}\n\n`);
+    if (!hasStreamedText) {
+      console.warn('All Gemini models failed or empty, streaming via Sapphire Engine...');
+      const generated = generateSapphireResponse(messages, systemInstruction);
+      const words = generated.split(' ');
+      for (let i = 0; i < words.length; i += 3) {
+        const slice = words.slice(i, i + 3).join(' ') + (i + 3 < words.length ? ' ' : '');
+        res.write(`data: ${JSON.stringify({ text: slice })}\n\n`);
+        if (typeof (res as any).flush === 'function') {
+          (res as any).flush();
+        }
+        await new Promise((r) => setTimeout(r, 15));
+      }
     }
 
     res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
     res.end();
   } catch (error: any) {
-    console.warn('Streaming error in /api/chat/stream, falling back to Sapphire Engine:', error?.message);
+    console.error('Fatal streaming error:', error);
     try {
       const generated = generateSapphireResponse(messages, systemInstruction);
       res.write(`data: ${JSON.stringify({ text: generated })}\n\n`);
@@ -490,7 +511,7 @@ app.post(['/api/chat', '/chat'], async (req, res) => {
     const {
       messages,
       systemInstruction,
-      model = 'gemini-3.1-flash-lite',
+      model = 'gemini-3.5-flash',
       webSearch = false,
     } = req.body;
 
@@ -517,7 +538,7 @@ app.post(['/api/chat', '/chat'], async (req, res) => {
     }
 
     const response = await getContentWithFallback(
-      model || 'gemini-flash-latest',
+      model || 'gemini-3.5-flash',
       formattedContents,
       config
     );
